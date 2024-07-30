@@ -1,0 +1,482 @@
+﻿/* ייבוא של גופן Rubik */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap');
+/* עיצוב גוף העמוד */
+body {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    direction: rtl;
+    font-family: Rubik;
+    background-color: #FBFCF8;
+    box-sizing: border-box; /* כולל ריווח וגבול ברוחב ובגובה הכוללים של האלמנט */
+    padding: 0;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column; /* סידור האלמנטים בעמודה */
+    align-items: center; /* מרכז את הפריטים בצורה אנכית */
+}
+
+/* עכבר לא נגיש עבור אלמנט שלא פעיל */
+.notActive {
+    cursor: not-allowed;
+}
+
+/* תפריט ניווט ראשי */
+.mainNav {
+    right: 0px;
+    left: 0px;
+    width: 1280px;
+    position: fixed;
+    top: 0; /* התפריט ידבק לחלק העליון של המסך */
+    background-color: #FAECDD;
+    width: 100%;
+    height: 15%;
+    z-index: 2000; /* ודא שה-z-index גבוה כדי שהתפריט יישאר מעל תכנים אחרים בעמוד */
+    font-size: 16px;
+    font-family: Calibri;
+    align-items: center;
+    color: saddlebrown;
+    display: flex;
+    justify-content: center;
+}
+
+    /* תוכן תפריט ניווט */
+    .mainNav .nav-content {
+        height: 100px;
+        width: 100%;
+        max-width: 1280px;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        justify-content: center;
+        padding: 0 20px;
+    }
+
+    /* לוגו בתפריט ניווט */
+    .mainNav .logo {
+        margin-top: 5px;
+        height: 100px;
+        margin-right: auto; /* מיישר את הלוגו לשמאל */
+    }
+
+    /* תפריט ניווט - רשימת פריטים */
+    .mainNav > ul {
+        display: block;
+        position: relative;
+        top: 18px;
+        margin: auto;
+        width: 700px;
+    }
+
+        /* פריט ברשימת תפריט ניווט */
+        .mainNav > ul > li {
+            display: inline-block;
+            text-align: center;
+            width: 100px;
+            height: 40px;
+        }
+
+    /* קישורים בתפריט ניווט */
+    .mainNav ul li a {
+        text-decoration: none;
+        color: #dc7876;
+        font-size: 1.6em;
+    }
+
+    /* תפריט נפתח בתפריט ניווט */
+    .mainNav ul li ul {
+        display: none;
+        position: absolute;
+        padding-right: 0px;
+        top: 40px;
+        width: 100px;
+        border: 0.5px solid #FAECDD;
+        border-top: 0px;
+        border-radius: 0px 0px 30px 30px;
+        background-color: #FAECDD;
+        transform: translateX(50%);
+    }
+
+        /* פריטים בתפריט נפתח */
+        .mainNav ul li ul li {
+            display: block;
+            padding: 5px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+    /* תפריט נפתח - תצוגה בעת ריחוף */
+    .mainNav ul li:hover ul {
+        display: block;
+        filter: drop-shadow(2px 2px 2px #bdafa5);
+    }
+
+    /* תפריט נפתח - פריט בעת ריחוף */
+    .mainNav ul li ul li:hover {
+        background-color: #FBF8F0;
+    }
+
+    /* תפריט נפתח - פריט אחרון בעת ריחוף */
+    .mainNav ul li ul li:last-child:hover {
+        border-radius: 0px 0px 30px 30px;
+    }
+
+    /* קישורים בתפריט נפתח */
+    .mainNav ul li ul a {
+        text-decoration: none;
+        color: #dc7876;
+        font-size: 1.2em;
+    }
+
+    /* תפריט ניווט - רשימת פריטים בסגנון Flexbox */
+    .mainNav ul {
+        display: flex; /* תצורת Flexbox */
+        justify-content: center; /* מרכז פריטים בצורה אופקית */
+        flex-grow: 1;
+        list-style: none; /* הסרת נקודות */
+        padding: 0;
+        margin: 0;
+        gap: 30px; /* רווח בין פריטי תפריט */
+    }
+
+        /* פריטים בתפריט ניווט - תצורת Flexbox */
+        .mainNav ul li {
+            position: relative; /* מיקום לתפריט נפתח */
+            margin: 0 15px; /* רווח שווה בין פריטים */
+        }
+
+            /* קישורים בתפריט ניווט - תצורת Flexbox */
+            .mainNav ul li a {
+                display: block;
+                color: #5d4037;
+                text-decoration: none;
+                padding: 20px;
+                text-align: center;
+            }
+
+                /* קישורים בתפריט ניווט - בעת ריחוף */
+                .mainNav ul li a:hover {
+                    background-color: #e0d7d3;
+                    border-radius: 5px;
+                }
+
+            /* תפריט נפתח בתפריט ניווט */
+            .mainNav ul li ul.dropdown {
+                margin-right: 50px;
+                right: 30px;
+                width: 160px;
+                display: none;
+                position: absolute;
+                top: 100%; /* מיקום התפריט הפנימי מתחת לתפריט החיצוני */
+                left: 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* הוספת צל לתפריט הנפתח */
+                list-style: none;
+                border-radius: 5px; /* פינות מעוגלות */
+                z-index: 99;
+                text-align: center; /* טקסט מיושר למרכז בתפריט הנפתח */
+                float: right;
+            }
+
+            /* תפריט נפתח בתפריט ניווט - תצוגה בעת ריחוף */
+            .mainNav ul li:hover ul.dropdown {
+                display: block;
+            }
+
+            /* פריטים בתפריט נפתח */
+            .mainNav ul li ul.dropdown li {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding-left: 0px;
+                padding-right: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                width: 100%;
+                text-align: center; /* טקסט מיושר למרכז בפריטים */
+            }
+
+                /* קישורים בתפריט נפתח */
+                .mainNav ul li ul.dropdown li a {
+                    display: block;
+                    padding: 8px 16px;
+                    color: #5d4037;
+                    text-decoration: none;
+                    text-align: center; /* טקסט מיושר למרכז */
+                }
+
+                    /* קישורים בתפריט נפתח - בעת ריחוף */
+                    .mainNav ul li ul.dropdown li a:hover {
+                        font-weight: bold; /* טקסט מודגש בעת ריחוף */
+                    }
+
+                /* פריט אחרון בתפריט נפתח */
+                .mainNav ul li ul.dropdown li:last-child {
+                    border-radius: 0 0 0 0; /* פינות עגולות רק לפריט האחרון */
+                }
+
+/* פריט בתפריט ניווט */
+li.navLi {
+    padding-top: 15px;
+}
+
+/* פירורי לחם */
+.breadCrumbs {
+    padding-top: 150px;
+    z-index: 2; /* רמות תצוגה */
+    position: relative;
+    float: right;
+    width: 100%;
+    display: flex;
+    justify-content: right; /* מרכז את פירורי הלחם */
+}
+
+    /* רשימת פירורי לחם */
+    .breadCrumbs ol {
+        list-style: none;
+        display: flex;
+        justify-content: flex-start; /* מיישר פריטים לתחילת הרשימה */
+        align-items: center;
+    }
+
+        /* פריט ברשימת פירורי לחם */
+        .breadCrumbs ol li {
+            margin: 0 5px;
+        }
+
+            /* קישורים בפירורי לחם */
+            .breadCrumbs ol li a {
+                color: #5d4037;
+                text-decoration: none;
+                font-size: 18px;
+                transition: font-weight 0.3s; /* מעבר חלק לשינוי משקל הגופן */
+            }
+
+                /* קישורים בפירורי לחם - בעת ריחוף */
+                .breadCrumbs ol li a:hover {
+                    text-decoration: none; /* הסרת קו תחתון בעת ריחוף */
+                    font-weight: bold; /* טקסט מודגש בעת ריחוף */
+                }
+
+            /* סימן חץ בין פריטים בפירורי לחם */
+            .breadCrumbs ol li::after {
+                content: ">";
+                margin: 0 5px;
+                color: #5d4037;
+            }
+
+            /* הסרת סימן חץ מהפריט האחרון בפירורי לחם */
+            .breadCrumbs ol li:last-child::after {
+                content: ""; /* הסרת חץ */
+            }
+
+            /* קישור לעמוד נוכחי בפירורי לחם */
+            .breadCrumbs ol li a.current-page {
+                border-bottom: 2px solid #5d4037; /* קו תחתון לעמוד נוכחי */
+            }
+
+/* טקסט מבוא */
+.intro-text {
+    position: relative;
+    text-align: center;
+}
+
+    /* כותרת טקסט מבוא */
+    .intro-text h1 {
+        font-size: 32px;
+        color: #5d4037;
+    }
+
+    /* פסקה בטקסט מבוא */
+    .intro-text p {
+        font-size: 25px;
+        color: #5d4037;
+    }
+
+/* תפריט תחתון */
+footer {
+    font-weight: 500;
+    font-size: x-large;
+    background-color: rgba(0, 162, 243, 0.6);
+    width: 110%;
+    height: 100px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+/* רקע כתום לטפסים */
+div.container {
+    width: 70%;
+    background-color: rgb(255, 165, 0, 0.3);
+    border-radius: 30px;
+    padding: 35px;
+}
+
+/* מיכל חיצוני */
+.outer-container {
+    float: right;
+    width: 70%;
+}
+
+/* כותרות ברמת H3 ו-H4 */
+h3, h4 {
+    font-weight: normal;
+}
+
+/* טפסים */
+/* הוספת כוכבית אדומה אחרי אלמנטים עם מחלקה 'asterisk' */
+.asterisk::after {
+    content: '*';
+    color: red;
+    font-weight: bold;
+}
+
+/* כפתור שליחת טופס */
+.sendForm {
+    font-size: larger;
+    background-color: lightskyblue;
+    border-radius: 20px;
+    font-family: Rubik;
+}
+
+/* גוף טופס */
+.bodyForm {
+    background-image: url('../images/formReka.jpeg');
+    background-size: cover; /* מכסה את כל המסך */
+    background-repeat: no-repeat; /* לא לחזור על התמונה */
+    height: 100%;
+    width: 100%;
+}
+
+/* אלמנטים מוסתרים */
+.hidden {
+    display: none;
+}
+
+/* תמונות בטופס מתנדבים */
+.volunteerCard {
+    position: relative;
+    overflow: hidden;
+    display: flex; /* מרכז */
+    justify-content: center; /* מרכז */
+    align-items: center; /* מרכז */
+    margin: 10px; /* רווח מסביב לתמונות */
+    border-radius: 15px; /* פינות מעוגלות */
+}
+
+/* שקיפות תמונות */
+img {
+    opacity: 0.5; /* שקיפות של 50% */
+    transition: opacity 0.3s ease; /* אנימציה חלקה לשינוי השקיפות */
+}
+
+    /* תמונה פעילה */
+    img.active {
+        opacity: 1; /* שקיפות מלאה */
+    }
+
+/* תפריט צדדי */
+aside {
+    width: max-content;
+    float: left;
+    margin-top: 220px;
+    margin-right: 480px;
+    position: absolute;
+    top: 20px;
+    background-color: rgb(115, 194, 255);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    /* מקטעים בתפריט צדדי */
+    aside section {
+        background-color: rgba( 56, 154, 219, 0.5);
+        border-radius: 15px;
+        margin: 8px;
+        padding: 10px;
+    }
+
+    /* תפריט צדדי - סוגי מתנדבים */
+    aside .gender {
+        height: 171px;
+    }
+
+/* תמונה בתפריט צדדי */
+.gender img {
+    position: absolute;
+    left: 155px;
+}
+
+/* תפריט צדדי - מפה */
+aside .map {
+    height: 433px;
+}
+
+/* תמונה במפה */
+.map img {
+    position: absolute;
+    left: 155px;
+}
+
+/* ימי פעילות בתפריט צדדי */
+.days {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* נתוני טופס */
+.formData {
+    width: max-content;
+}
+
+/* סוגי מתנדבים */
+.types img {
+    width: 70px;
+    height: auto;
+}
+
+/* כותרת בכרטיס מתנדבים */
+aside #titleCard {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* הודעת סיכום */
+#confirmation-message {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 600px; /* אפשר להתאים את הרוחב למידת הצורך */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Rubik', sans-serif; /* שימוש בפונט Rubik */
+    white-space: pre-line; /* תומך בהצגת שורות חדשות */
+}
+
+    /* עיצוב הכותרת הראשית בהודעת סיכום */
+    #confirmation-message .main-title {
+        font-weight: bold; /* הדגשה של הכותרת */
+        text-decoration: underline; /* קו תחתון */
+        margin-bottom: 10px;
+    }
+
+/* הודעת סיכום - עיצוב כללי */
+#confirmation-message {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Rubik', sans-serif; /* שימוש בפונט Rubik */
+    white-space: pre-line; /* תומך בהצגת שורות חדשות */
+    width: 100%;
+    max-width: 600px;
+    position: fixed; /* שינוי מ-absolute ל-fixed */
+    top: 50%; /* מיקום באמצע המסך לגובה */
+    left: 50%; /* מיקום באמצע המסך לרוחב */
+    transform: translate(-50%, -50%); /* הזזה למרכז בדיוק */
+    z-index: 1000; /* ודא שההודעה תוצג מעל שאר התוכן */
+}
+
